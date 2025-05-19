@@ -1,7 +1,18 @@
 import puppeteer from 'puppeteer';
 
 async function getAllEmailsFromAllTables(url) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-zygote',
+      '--single-process',
+      '--disable-gpu',
+    ],
+  });
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle2' });
   const emails = new Set();
