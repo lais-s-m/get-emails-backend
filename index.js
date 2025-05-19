@@ -17,7 +17,7 @@ app.post('/get-emails', async (req, res) => {
       const emails = await getAllEmailsFromAllTables(url);
       emails.forEach((email) => allEmails.add(email));
     } catch (e) {
-      // ignora erro de uma URL
+      console.error(`Erro ao processar ${url}:`, e);
     }
   }
   res.json({ emails: Array.from(allEmails) });

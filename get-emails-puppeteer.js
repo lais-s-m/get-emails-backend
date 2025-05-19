@@ -61,11 +61,16 @@ async function getAllEmailsFromAllTables(url) {
             pageEmails.length + tableTextEmails.length
           } e-mails encontrados (total até agora: ${emails.size})`
         );
-      } catch {
+      } catch (e) {
         // Se não encontrar e-mails na tabela, apenas continue
+        console.error(
+          `Erro ao processar tabela ${tableSelector} na página ${url}:`,
+          e
+        );
       }
       // Tenta clicar no botão "Próximo" relativo à tabela
       let nextButton = null;
+      console.log('nextButton =>', nextButton);
       const tableId = await page.$eval(tableSelector, (table) => table.id);
       if (tableId) {
         nextButton = await page.$(
